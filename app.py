@@ -33,8 +33,9 @@ funds = {
         "Fisher Funds Plan Def Conserv": {"Avg Return": 0.039, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
         "Milford Conservative Fund": {"Avg Return": 0.037, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
         "Simplicity Conservative Fund": {"Avg Return": 0.023, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
-        "Westpac Defensive Conservative": {"Avg Return": 0.029, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
-
+        "Westpac Defensive Conservative": {"Avg Return": 0.029, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012}
+    },
+        "Provider B Conservative": {"Avg Return": 0.042, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
     },
     "Moderate": {
         "Provider A Moderate": {"Avg Return": 0.05, "Annual Fee": 40, "Mgmt Fee %": 0.007, "Buy/Sell Fee": 0.0015},
@@ -114,7 +115,7 @@ results_display = results.set_index("Year")
 st.subheader(f"Projected KiwiSaver Balances - {fund_type} Funds")
 st.dataframe(results_display.style.format({col: "${:,.2f}" for col in results_display.columns}))
 
-# Plot growth over time with hover-over balance display using Plotly
+# Plot growth over time with hover-over fund name using Plotly
 st.subheader("Balance Growth Over Time")
 fig = go.Figure()
 for fund in selected_funds.keys():
@@ -123,7 +124,7 @@ for fund in selected_funds.keys():
         y=results[fund],
         mode='lines+markers',
         name=fund,
-        hovertemplate='<b>Year</b>: %{x}<br><b>Balance</b>: $%{y:,.2f}<extra></extra>'
+        hovertemplate=f'<b>Fund</b>: {fund}<br><b>Balance</b>: $%{{y:,.2f}}<extra></extra>'
     ))
 fig.update_layout(
     xaxis_title="Years",
