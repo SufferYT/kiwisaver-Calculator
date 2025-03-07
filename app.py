@@ -28,12 +28,14 @@ funds = {
         "ANZ Conservative": {"Avg Return": 0.024, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
         "ASB Scheme's Cnsrv": {"Avg Return": 0.025, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
         "BNZ Consrv": {"Avg Return": 0.024, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
-        "Booster Consrv Fund": {"Avg Return": 0.028, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
+        "Booster Consrv Fund ": {"Avg Return": 0.028, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
         "Fisher TWO Cash Enhanced": {"Avg Return": 0.035, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
         "Fisher Funds Plan Def Conserv": {"Avg Return": 0.039, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
         "Milford Conservative Fund": {"Avg Return": 0.037, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
         "Simplicity Conservative Fund": {"Avg Return": 0.023, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
         "Westpac Defensive Conservative": {"Avg Return": 0.029, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012}
+    },
+        "Provider B Conservative": {"Avg Return": 0.042, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
     },
     "Moderate": {
         "Provider A Moderate": {"Avg Return": 0.05, "Annual Fee": 40, "Mgmt Fee %": 0.007, "Buy/Sell Fee": 0.0015},
@@ -112,3 +114,22 @@ results_display = results.set_index("Year")
 # Display comparison table
 st.subheader(f"Projected KiwiSaver Balances - {fund_type} Funds")
 st.dataframe(results_display.style.format({col: "${:,.2f}" for col in results_display.columns}))
+
+# Plot growth over time with hover-over fund name using Plotly
+st.subheader("Balance Growth Over Time")
+fig = go.Figure()
+for fund in selected_funds.keys():
+    fig.add_trace(go.Scatter(
+        x=results["Year"],
+        y=results[fund],
+        mode='lines+markers',
+        name=fund,
+        hovertemplate=f'<b>Fund</b>: {fund}<br><b>Balance</b>: $%{{y:,.2f}}<extra></extra>'
+    ))
+fig.update_layout(
+    xaxis_title="Years",
+    yaxis_title="Projected Balance ($)",
+    title=f"KiwiSaver Growth Comparison ({fund_type} Funds)",
+    hovermode="x unified"
+)
+st.plotly_chart(fig)
