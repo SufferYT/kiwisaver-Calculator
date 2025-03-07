@@ -97,9 +97,8 @@ for fund, data in selected_funds.items():
     
     results[fund] = yearly_balances
 
-# Hide the first column (Year) in the results table and rename the first visible column
+# Hide the first column (Year) in the results table
 results_display = results.drop(columns=["Year"])
-results_display.rename(columns={results_display.columns[0]: "Year"}, inplace=True)
 
 # Display comparison table
 st.subheader(f"Projected KiwiSaver Balances - {fund_type} Funds")
