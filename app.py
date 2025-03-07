@@ -47,9 +47,9 @@ funds = {
 # Streamlit UI
 st.title("KiwiSaver Fund Comparison Calculator")
 
-# User Inputs
-starting_balance = st.number_input("Starting KiwiSaver Balance ($)", min_value=0, value=0, step=1000)
-income = st.number_input("Annual Income ($)", min_value=1000, value=70000, step=1000)
+# User Inputs with formatted number display
+starting_balance = st.number_input("Starting KiwiSaver Balance ($)", min_value=0, value=0, step=1000, format="%d")
+income = st.number_input("Annual Income ($)", min_value=1000, value=70000, step=1000, format="%d")
 contribution_rate = st.slider("Your Contribution Rate (%)", 3, 10, 3) / 100
 employer_contribution_rate = st.slider("Employer Contribution Rate (%)", 3, 10, 3) / 100
 investment_years = st.slider("Investment Period (Years)", 1, 40, 20)
@@ -104,7 +104,7 @@ results_display = results.set_index("Year")
 st.subheader(f"Projected KiwiSaver Balances - {fund_type} Funds")
 st.dataframe(results_display.style.format({col: "${:,.2f}" for col in results_display.columns}))
 
-# Plot growth over time
+# Plot growth over time with formatted Y-axis labels
 st.subheader("Balance Growth Over Time")
 fig, ax = plt.subplots(figsize=(10, 5))
 for fund in selected_funds.keys():
@@ -114,4 +114,5 @@ ax.set_ylabel("Projected Balance ($)")
 ax.set_title(f"KiwiSaver Growth Comparison ({fund_type} Funds)")
 ax.legend()
 ax.grid()
+ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'${x:,.0f}'))
 st.pyplot(fig)
