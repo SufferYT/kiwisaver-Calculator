@@ -3,6 +3,19 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Apply custom CSS to keep the form background white regardless of dark mode
+st.markdown(
+    """
+    <style>
+        div.stButton > button, div.stTextInput > div, div.stSelectbox > div, div.stNumberInput > div, div.stSlider > div {
+            background-color: white !important;
+            color: black !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Sample KiwiSaver providers with categorized funds
 funds = {
     "Conservative": {
@@ -31,13 +44,26 @@ funds = {
 st.title("KiwiSaver Fund Comparison Calculator")
 
 # User Inputs
-fund_type = st.selectbox("Select Fund Type", list(funds.keys()))
+starting_balance = st.number_input("Starting KiwiSaver Balance ($)", min_value=0, value=0, step=1000)
 income = st.number_input("Annual Income ($)", min_value=1000, value=70000, step=1000)
 contribution_rate = st.slider("Your Contribution Rate (%)", 3, 10, 3) / 100
 employer_contribution_rate = st.slider("Employer Contribution Rate (%)", 3, 10, 3) / 100
-investment_years = st.slider("Investment Period (Years)", 5, 40, 20)
+investment_years = st.slider("Investment Period (Years)", 1, 40, 20)
 
 govt_contribution = 521  # Max annual government contribution
+
+# Fund recommendation logic
+recommendation = "Conservative" if investment_years <= 3 else \
+                "Moderate" if investment_years <= 5 else \
+                "Balanced" if investment_years == 6 else \
+                "Growth" if investment_years <= 10 else "Aggressive"
+
+# Determine color based on recommendation match
+color = "green" if recommendation in funds else "red"
+st.markdown(f"**Recommended Fund Type:** <span style='color:{color}; font-weight:bold;'>{recommendation}</span>", unsafe_allow_html=True)
+
+# Fund type selection (last input)
+fund_type = st.selectbox("Select Fund Type", list(funds.keys()))
 
 # Monthly contributions
 monthly_employee = (income * contribution_rate) / 12
@@ -49,7 +75,7 @@ results = pd.DataFrame({"Year": years})
 # Calculate projections for selected fund type
 selected_funds = funds[fund_type]
 for fund, data in selected_funds.items():
-    balance = 0
+    balance = starting_balance
     yearly_balances = []
     for year in years:
         annual_contribution = (monthly_employee + monthly_employer) * 12 + govt_contribution
@@ -69,7 +95,7 @@ for fund, data in selected_funds.items():
 
 # Display comparison table
 st.subheader(f"Projected KiwiSaver Balances - {fund_type} Funds")
-st.dataframe(results.style.format("${:,.2f}"))
+st.dataframe(results.style.format({col: "${:,.2f}" for col in results.columns if col != "Year"}))
 
 # Plot growth over time
 st.subheader("Balance Growth Over Time")
