@@ -23,7 +23,7 @@ st.markdown(
 # Sample KiwiSaver providers with categorized funds
 funds = {
     "Conservative": {
-        "AMP Defensive Conservative": {"Avg Return": 0.24, "Annual Fee": 30, "Mgmt Fee %": 0.006, "Buy/Sell Fee": 0.001},
+        "AMP Defensive Conservative": {"Avg Return": 0.024, "Annual Fee": 30, "Mgmt Fee %": 0.006, "Buy/Sell Fee": 0.001},
         "ANZ Conservative": {"Avg Return": 0.024, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
         "ASB Scheme's Cnsrv": {"Avg Return": 0.025, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
         "BNZ Consrv": {"Avg Return": 0.024, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
