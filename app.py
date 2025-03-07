@@ -20,6 +20,11 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+# Function to format numbers with commas
+def format_number_input(label, default_value):
+    formatted_value = st.text_input(label, f"{default_value:,}")
+    return int(formatted_value.replace(",", "")) if formatted_value.replace(",", "").isdigit() else default_value
+
 # Sample KiwiSaver providers with categorized funds
 funds = {
     "Conservative": {
@@ -48,8 +53,8 @@ funds = {
 st.title("KiwiSaver Fund Comparison Calculator")
 
 # User Inputs with formatted number display
-starting_balance = st.number_input("Starting KiwiSaver Balance ($)", min_value=0, value=0, step=1000, format="%d")
-income = st.number_input("Annual Income ($)", min_value=1000, value=70000, step=1000, format="%d")
+starting_balance = format_number_input("Starting KiwiSaver Balance ($)", 0)
+income = format_number_input("Annual Income ($)", 70000)
 contribution_rate = st.slider("Your Contribution Rate (%)", 3, 10, 3) / 100
 employer_contribution_rate = st.slider("Employer Contribution Rate (%)", 3, 10, 3) / 100
 investment_years = st.slider("Investment Period (Years)", 1, 40, 20)
