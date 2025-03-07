@@ -23,8 +23,17 @@ st.markdown(
 # Sample KiwiSaver providers with categorized funds
 funds = {
     "Conservative": {
-        "Provider A Conservative": {"Avg Return": 0.04, "Annual Fee": 30, "Mgmt Fee %": 0.006, "Buy/Sell Fee": 0.001},
-        "Provider B Conservative": {"Avg Return": 0.042, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
+        "AMP Defensive Conservative": {"Avg Return": 0.24, "Annual Fee": 30, "Mgmt Fee %": 0.006, "Buy/Sell Fee": 0.001},
+        "ANZ Conservative": {"Avg Return": 0.024, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
+        "ASB Scheme's Cnsrv": {"Avg Return": 0.025, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
+        "BNZ Consrv": {"Avg Return": 0.024, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
+        "Booster Consrv Fund": {"Avg Return": 0.028, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
+        "Fisher Funds Plan Def Conserv": {"Avg Return": 0.039, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
+        "Milford Conservative Fund": {"Avg Return": 0.037, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
+        "Pathfinder Conservative Fund": {"Avg Return": 0.044, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
+        "Simplicity Conservative Fund": {"Avg Return": 0.023, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
+        "Westpac Defensive Conservative": {"Avg Return": 0.029, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
+
     },
     "Moderate": {
         "Provider A Moderate": {"Avg Return": 0.05, "Annual Fee": 40, "Mgmt Fee %": 0.007, "Buy/Sell Fee": 0.0015},
