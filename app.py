@@ -97,9 +97,12 @@ for fund, data in selected_funds.items():
     
     results[fund] = yearly_balances
 
+# Hide the first column (Year) in the results table
+results_display = results.drop(columns=["Year"])
+
 # Display comparison table
 st.subheader(f"Projected KiwiSaver Balances - {fund_type} Funds")
-st.dataframe(results.style.format({col: "${:,.2f}" for col in results.columns if col != "Year"}))
+st.dataframe(results_display.style.format({col: "${:,.2f}" for col in results_display.columns}))
 
 # Plot growth over time
 st.subheader("Balance Growth Over Time")
