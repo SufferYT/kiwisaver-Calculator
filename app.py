@@ -3,38 +3,13 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Apply custom CSS to enforce white backgrounds and black text
+# Apply custom CSS to keep the form background white regardless of dark mode
 st.markdown(
     """
     <style>
-        /* Set all input fields, dropdowns, sliders, buttons, and interactive elements to white */
-        div[data-testid="stTextInput"] div,
-        div[data-testid="stSelectbox"] div,
-        div[data-testid="stNumberInput"] div,
-        div[data-testid="stSlider"] div,
-        div[data-testid="stButton"] button,
-        div[data-testid="stDataFrame"] *,
-        div[data-testid="stTable"] *,
-        div[data-testid="stPlotlyChart"] * {
+        div.stButton > button, div.stTextInput > div, div.stSelectbox > div, div.stNumberInput > div, div.stSlider > div {
             background-color: white !important;
             color: black !important;
-            border-color: black !important;
-        }
-
-        /* Set entire page background to white */
-        body, .stApp {
-            background-color: white !important;
-        }
-
-        /* Ensure ALL text is black */
-        h1, h2, h3, h4, h5, h6, p, label, span, div {
-            color: black !important;
-        }
-
-        /* Fix text contrast inside buttons */
-        div[data-testid="stButton"] button {
-            color: black !important;
-            border: 1px solid black !important;
         }
     </style>
     """,
@@ -83,15 +58,12 @@ recommendation = "Conservative" if investment_years <= 3 else \
                 "Balanced" if investment_years == 6 else \
                 "Growth" if investment_years <= 10 else "Aggressive"
 
-# Fund type selection
-fund_type = st.selectbox("Select Fund Type", list(funds.keys()))
+# Determine color based on recommendation match
+color = "green" if recommendation in funds else "red"
+st.markdown(f"**Recommended Fund Type:** <span style='color:{color}; font-weight:bold;'>{recommendation}</span>", unsafe_allow_html=True)
 
-# **Color logic for recommendation display**
-recommendation_color = "green" if recommendation == fund_type else "red"
-st.markdown(
-    f"**Recommended Fund Type:** <span style='color:{recommendation_color}; font-weight:bold;'>{recommendation}</span>",
-    unsafe_allow_html=True
-)
+# Fund type selection (last input)
+fund_type = st.selectbox("Select Fund Type", list(funds.keys()))
 
 # Monthly contributions
 monthly_employee = (income * contribution_rate) / 12
