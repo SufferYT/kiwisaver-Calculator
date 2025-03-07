@@ -35,8 +35,6 @@ funds = {
         "Simplicity Conservative Fund": {"Avg Return": 0.023, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
         "Westpac Defensive Conservative": {"Avg Return": 0.029, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012}
     },
-        "Provider B Conservative": {"Avg Return": 0.042, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
-    },
     "Moderate": {
         "Provider A Moderate": {"Avg Return": 0.05, "Annual Fee": 40, "Mgmt Fee %": 0.007, "Buy/Sell Fee": 0.0015},
         "Provider C Moderate": {"Avg Return": 0.052, "Annual Fee": 45, "Mgmt Fee %": 0.0072, "Buy/Sell Fee": 0.0017},
