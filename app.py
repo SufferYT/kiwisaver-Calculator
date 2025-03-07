@@ -3,11 +3,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Apply custom CSS to force all backgrounds to remain white and text black
+# Apply custom CSS to enforce white backgrounds and black text
 st.markdown(
     """
     <style>
-        /* Make sure all Streamlit input fields and buttons have a white background */
+        /* Set all input fields, dropdowns, sliders, buttons, and interactive elements to white */
         div[data-testid="stTextInput"] div,
         div[data-testid="stSelectbox"] div,
         div[data-testid="stNumberInput"] div,
@@ -26,8 +26,8 @@ st.markdown(
             background-color: white !important;
         }
 
-        /* Force text to stay black */
-        div, span, p, label {
+        /* Ensure ALL text is black */
+        h1, h2, h3, h4, h5, h6, p, label, span, div {
             color: black !important;
         }
 
@@ -36,7 +36,6 @@ st.markdown(
             color: black !important;
             border: 1px solid black !important;
         }
-
     </style>
     """,
     unsafe_allow_html=True
@@ -84,12 +83,15 @@ recommendation = "Conservative" if investment_years <= 3 else \
                 "Balanced" if investment_years == 6 else \
                 "Growth" if investment_years <= 10 else "Aggressive"
 
-# Determine color based on recommendation match
-color = "green" if recommendation in funds else "red"
-st.markdown(f"**Recommended Fund Type:** <span style='color:{color}; font-weight:bold;'>{recommendation}</span>", unsafe_allow_html=True)
-
-# Fund type selection (last input)
+# Fund type selection
 fund_type = st.selectbox("Select Fund Type", list(funds.keys()))
+
+# **Color logic for recommendation display**
+recommendation_color = "green" if recommendation == fund_type else "red"
+st.markdown(
+    f"**Recommended Fund Type:** <span style='color:{recommendation_color}; font-weight:bold;'>{recommendation}</span>",
+    unsafe_allow_html=True
+)
 
 # Monthly contributions
 monthly_employee = (income * contribution_rate) / 12
