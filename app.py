@@ -3,12 +3,31 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Apply custom CSS to keep the form background white regardless of dark mode
+# Apply custom CSS to prevent dark mode from affecting the form
 st.markdown(
     """
     <style>
-        div.stButton > button, div.stTextInput > div, div.stSelectbox > div, div.stNumberInput > div, div.stSlider > div {
+        /* Make the background of the form and input fields stay white */
+        div.stButton > button, 
+        div.stTextInput > div, 
+        div.stSelectbox > div, 
+        div.stNumberInput > div, 
+        div.stSlider > div,
+        div.stDataFrame,
+        div.stPlotlyChart,
+        div.stTable {
             background-color: white !important;
+            color: black !important;
+        }
+
+        /* Force the main page background to stay white */
+        body, .stApp {
+            background-color: white !important;
+            color: black !important;
+        }
+
+        /* Ensure text contrast remains clear */
+        * {
             color: black !important;
         }
     </style>
