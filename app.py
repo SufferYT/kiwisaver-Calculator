@@ -97,12 +97,12 @@ for fund, data in selected_funds.items():
     
     results[fund] = yearly_balances
 
-# Rename the first column explicitly
-results_display = results.rename(columns={"Year": "Investment Year"})
+# Drop the index column to prevent duplicate numbering
+results_display = results.set_index("Year")
 
 # Display comparison table
 st.subheader(f"Projected KiwiSaver Balances - {fund_type} Funds")
-st.dataframe(results_display.style.format({col: "${:,.2f}" for col in results_display.columns if col != "Investment Year"}))
+st.dataframe(results_display.style.format({col: "${:,.2f}" for col in results_display.columns}))
 
 # Plot growth over time
 st.subheader("Balance Growth Over Time")
