@@ -3,33 +3,40 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Apply custom CSS to prevent dark mode from affecting the form
+# Apply custom CSS to force all backgrounds to remain white and text black
 st.markdown(
     """
     <style>
-        /* Make the background of the form and input fields stay white */
-        div.stButton > button, 
-        div.stTextInput > div, 
-        div.stSelectbox > div, 
-        div.stNumberInput > div, 
-        div.stSlider > div,
-        div.stDataFrame,
-        div.stPlotlyChart,
-        div.stTable {
+        /* Make sure all Streamlit input fields and buttons have a white background */
+        div[data-testid="stTextInput"] div,
+        div[data-testid="stSelectbox"] div,
+        div[data-testid="stNumberInput"] div,
+        div[data-testid="stSlider"] div,
+        div[data-testid="stButton"] button,
+        div[data-testid="stDataFrame"] *,
+        div[data-testid="stTable"] *,
+        div[data-testid="stPlotlyChart"] * {
             background-color: white !important;
             color: black !important;
+            border-color: black !important;
         }
 
-        /* Force the main page background to stay white */
+        /* Set entire page background to white */
         body, .stApp {
             background-color: white !important;
+        }
+
+        /* Force text to stay black */
+        div, span, p, label {
             color: black !important;
         }
 
-        /* Ensure text contrast remains clear */
-        * {
+        /* Fix text contrast inside buttons */
+        div[data-testid="stButton"] button {
             color: black !important;
+            border: 1px solid black !important;
         }
+
     </style>
     """,
     unsafe_allow_html=True
