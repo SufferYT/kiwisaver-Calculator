@@ -36,8 +36,13 @@ funds = {
         "Westpac Defensive Conservative": {"Avg Return": 0.029, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012}
     },
     "Moderate": {
-        "Provider A Moderate": {"Avg Return": 0.05, "Annual Fee": 40, "Mgmt Fee %": 0.007, "Buy/Sell Fee": 0.0015},
-        "Provider C Moderate": {"Avg Return": 0.052, "Annual Fee": 45, "Mgmt Fee %": 0.0072, "Buy/Sell Fee": 0.0017},
+        "AMP Moderate Fund": {"Avg Return": 0.032, "Annual Fee": 40, "Mgmt Fee %": 0.007, "Buy/Sell Fee": 0.0015},
+        "ANZ Conservative Balanced": {"Avg Return": 0.033, "Annual Fee": 45, "Mgmt Fee %": 0.0072, "Buy/Sell Fee": 0.0017},
+        "ASB Moderate": {"Avg Return": 0.036, "Annual Fee": 45, "Mgmt Fee %": 0.0072, "Buy/Sell Fee": 0.0017},
+        "BNZ Moderate Fund": {"Avg Return": 0.041, "Annual Fee": 45, "Mgmt Fee %": 0.0072, "Buy/Sell Fee": 0.0017},
+        "Booster Moderate": {"Avg Return": 0.032, "Annual Fee": 45, "Mgmt Fee %": 0.0072, "Buy/Sell Fee": 0.0017},
+        "Generate Moderate": {"Avg Return": 0.047, "Annual Fee": 45, "Mgmt Fee %": 0.0072, "Buy/Sell Fee": 0.0017},
+        "Westpac Moderate": {"Avg Return": 0.040, "Annual Fee": 45, "Mgmt Fee %": 0.0072, "Buy/Sell Fee": 0.0017},
     },
     "Balanced": {
         "Provider A Balanced": {"Avg Return": 0.06, "Annual Fee": 50, "Mgmt Fee %": 0.008, "Buy/Sell Fee": 0.002},
