@@ -69,8 +69,10 @@ funds = {
         "Westpac Growth Fund": {"Avg Return": 0.063, "Annual Fee": 60, "Mgmt Fee %": 0.0092, "Buy/Sell Fee": 0.0023},
     },
     "Aggressive": {
-        "Provider A Aggressive": {"Avg Return": 0.08, "Annual Fee": 65, "Mgmt Fee %": 0.010, "Buy/Sell Fee": 0.0025},
-        "Provider C Aggressive": {"Avg Return": 0.085, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
+        "AMP Aggressive Fund": {"Avg Return": 0.071, "Annual Fee": 65, "Mgmt Fee %": 0.010, "Buy/Sell Fee": 0.0025},
+        "Booster High Growth": {"Avg Return": 0.085, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
+        "Generate Focused Growth Fund": {"Avg Return": 0.085, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
+        "Milford Aggressive": {"Avg Return": 0.011, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
     }
 }
 
