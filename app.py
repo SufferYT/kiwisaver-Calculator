@@ -45,8 +45,15 @@ funds = {
         "Westpac Moderate": {"Avg Return": 0.040, "Annual Fee": 45, "Mgmt Fee %": 0.0072, "Buy/Sell Fee": 0.0017},
     },
     "Balanced": {
-        "Provider A Balanced": {"Avg Return": 0.06, "Annual Fee": 50, "Mgmt Fee %": 0.008, "Buy/Sell Fee": 0.002},
-        "Provider B Balanced": {"Avg Return": 0.062, "Annual Fee": 48, "Mgmt Fee %": 0.0078, "Buy/Sell Fee": 0.0019},
+        "AMP Balanced Fund": {"Avg Return": 0.05, "Annual Fee": 50, "Mgmt Fee %": 0.008, "Buy/Sell Fee": 0.002},
+        "ANZ Balanced": {"Avg Return": 0.041, "Annual Fee": 48, "Mgmt Fee %": 0.0078, "Buy/Sell Fee": 0.0019},
+        "ASB Balanced": {"Avg Return": 0.055, "Annual Fee": 48, "Mgmt Fee %": 0.0078, "Buy/Sell Fee": 0.0019},
+        "BNZ Balanced Fund": {"Avg Return": 0.057, "Annual Fee": 48, "Mgmt Fee %": 0.0078, "Buy/Sell Fee": 0.0019},
+        "Booster Balanced": {"Avg Return": 0.054, "Annual Fee": 48, "Mgmt Fee %": 0.0078, "Buy/Sell Fee": 0.0019},
+        "Fisher Funds Plan Balanced": {"Avg Return": 0.065, "Annual Fee": 48, "Mgmt Fee %": 0.0078, "Buy/Sell Fee": 0.0019},
+        "Milford Balanced Fund": {"Avg Return": 0.071, "Annual Fee": 48, "Mgmt Fee %": 0.0078, "Buy/Sell Fee": 0.0019},
+        "Simplicity Balanced Fund": {"Avg Return": 0.06, "Annual Fee": 48, "Mgmt Fee %": 0.0078, "Buy/Sell Fee": 0.0019},
+        "Westpac Balanced Fund": {"Avg Return": 0.052, "Annual Fee": 48, "Mgmt Fee %": 0.0078, "Buy/Sell Fee": 0.0019},
     },
     "Growth": {
         "Provider B Growth": {"Avg Return": 0.07, "Annual Fee": 55, "Mgmt Fee %": 0.009, "Buy/Sell Fee": 0.0022},
