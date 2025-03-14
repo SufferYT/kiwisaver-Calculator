@@ -72,7 +72,7 @@ funds = {
         "AMP Aggressive Fund": {"Avg Return": 0.071, "Annual Fee": 65, "Mgmt Fee %": 0.010, "Buy/Sell Fee": 0.0025},
         "Booster High Growth": {"Avg Return": 0.085, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
         "Generate Focused Growth Fund": {"Avg Return": 0.085, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
-        "Milford Aggressive": {"Avg Return": 0.011, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
+        "Milford Aggressive": {"Avg Return": 0.11, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
     }
 }
 
