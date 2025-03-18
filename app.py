@@ -21,7 +21,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Sample KiwiSaver providers with categorized funds
+# KiwiSaver providers with categorized funds
 funds = {
     "Conservative": {
         "AMP Defensive Conservative": {"Avg Return": 0.024, "Annual Fee": 0, "Mgmt Fee %": 0.0079, "Buy/Sell Fee": 0.00},
