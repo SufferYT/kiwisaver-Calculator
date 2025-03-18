@@ -24,16 +24,15 @@ st.markdown(
 # Sample KiwiSaver providers with categorized funds
 funds = {
     "Conservative": {
-        "AMP Defensive Conservative": {"Avg Return": 0.024, "Annual Fee": 30, "Mgmt Fee %": 0.006, "Buy/Sell Fee": 0.001},
-        "ANZ Conservative": {"Avg Return": 0.024, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
-        "ASB Scheme's Cnsrv": {"Avg Return": 0.025, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
-        "BNZ Consrv": {"Avg Return": 0.024, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
-        "Booster Consrv Fund": {"Avg Return": 0.028, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
-        "Fisher TWO Cash Enhanced": {"Avg Return": 0.035, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
-        "Fisher Funds Plan Def Conserv": {"Avg Return": 0.039, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
-        "Milford Conservative Fund": {"Avg Return": 0.037, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
-        "Simplicity Conservative Fund": {"Avg Return": 0.023, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012},
-        "Westpac Defensive Conservative": {"Avg Return": 0.029, "Annual Fee": 25, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0012}
+        "AMP Defensive Conservative": {"Avg Return": 0.024, "Annual Fee": 0, "Mgmt Fee %": 0.0079, "Buy/Sell Fee": 0.00},
+        "ANZ Conservative": {"Avg Return": 0.024, "Annual Fee": 0, "Mgmt Fee %": 0.0064, "Buy/Sell Fee": 0.00},
+        "ASB Scheme's Cnsrv": {"Avg Return": 0.025, "Annual Fee": 0, "Mgmt Fee %": 0.004, "Buy/Sell Fee": 0.00},
+        "BNZ Consrv": {"Avg Return": 0.024, "Annual Fee": 0, "Mgmt Fee %": 0.0045, "Buy/Sell Fee": 0.00},
+        "Booster Consrv Fund": {"Avg Return": 0.028, "Annual Fee": 36, "Mgmt Fee %": 0.0038, "Buy/Sell Fee": 0.0012},
+        "Fisher Funds Plan Def Conserv": {"Avg Return": 0.039, "Annual Fee": 0, "Mgmt Fee %": 0.0093, "Buy/Sell Fee": 0.00},
+        "Milford Conservative Fund": {"Avg Return": 0.037, "Annual Fee": 0, "Mgmt Fee %": 0.0085, "Buy/Sell Fee": 0.00},
+        "Simplicity Conservative Fund": {"Avg Return": 0.023, "Annual Fee": 0, "Mgmt Fee %": 0.0025, "Buy/Sell Fee": 0.00},
+        "Westpac Defensive Conservative": {"Avg Return": 0.029, "Annual Fee": 0, "Mgmt Fee %": 0.004, "Buy/Sell Fee": 0.00}
     },
     "Moderate": {
         "AMP Moderate Fund": {"Avg Return": 0.032, "Annual Fee": 40, "Mgmt Fee %": 0.007, "Buy/Sell Fee": 0.0015},
