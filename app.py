@@ -14,6 +14,22 @@ st.markdown(
         section.main > div {
             overflow-x: hidden;
         }
+
+        /* Responsive chart hiding for mobile */
+        @media (max-width: 767px) {
+            #chart-container {
+                display: none !important;
+            }
+            #mobile-msg {
+                display: block !important;
+            }
+        }
+
+        #mobile-msg {
+            display: none;
+            color: red;
+            font-style: italic;
+        }
     </style>
     """,
     unsafe_allow_html=True
@@ -38,7 +54,6 @@ funds = {
         "Generate Focused Growth Fund": {"Avg Return": 0.085, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
         "Milford Aggressive": {"Avg Return": 0.11, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
     },
-    # Add the rest of the fund categories as before...
 }
 
 # UI
@@ -115,27 +130,20 @@ fig.update_layout(
     )
 )
 
-# Show chart only on desktop via JS detection
+# Render chart in container
 st.subheader("Balance Growth Over Time")
 st.markdown('<div id="chart-container">', unsafe_allow_html=True)
 st.plotly_chart(fig, use_container_width=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
-# JS to hide chart on mobile and show a message instead
+# Mobile-only chart hiding fallback (JS & CSS combined)
 st.markdown(
     """
-    <div id="mobile-msg" style="display: none; color: red; font-style: italic;">
-        📱 Chart hidden on mobile for a better experience.
-    </div>
-
     <script>
-    const chart = window.parent.document.getElementById("chart-container") || document.getElementById("chart-container");
-    const msg = document.getElementById("mobile-msg");
-    if (window.innerWidth < 768) {
-        if (chart) chart.style.display = "none";
-        if (msg) msg.style.display = "block";
-    }
-    </script>
-    """,
-    unsafe_allow_html=True
-)
+    window.onload = function() {
+        const chartContainer = document.getElementById("chart-container");
+        const mobileMsg = document.getElementById("mobile-msg");
+
+        if (window.innerWidth < 768) {
+            if (chartContainer) chartContainer.style.display = "none";
+            if
