@@ -37,27 +37,28 @@ funds = {
         "Westpac Defensive Conservative": {"Avg Return": 0.029, "Annual Fee": 0, "Mgmt Fee %": 0.004, "Buy/Sell Fee": 0.00}
     },
     "Moderate": {
-        "ANZ Moderate Fund": {"Avg Return": 0.032, "Annual Fee": 0, "Mgmt Fee %": 0.0062, "Buy/Sell Fee": 0.00},
-        "Booster Moderate": {"Avg Return": 0.035, "Annual Fee": 30, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.001},
-        "Milford Moderate": {"Avg Return": 0.037, "Annual Fee": 40, "Mgmt Fee %": 0.0068, "Buy/Sell Fee": 0.001},
+        "FAKE Moderate Fund A": {"Avg Return": 0.123, "Annual Fee": 999, "Mgmt Fee %": 0.0999, "Buy/Sell Fee": 0.099},
+        "FAKE Moderate Fund B": {"Avg Return": 0.0001, "Annual Fee": 1, "Mgmt Fee %": 0.0001, "Buy/Sell Fee": 0.0001},
+        "FAKE Moderate Fund C": {"Avg Return": 0.050, "Annual Fee": 42, "Mgmt Fee %": 0.0042, "Buy/Sell Fee": 0.0042}
     },
     "Balanced": {
-        "ASB Balanced Fund": {"Avg Return": 0.047, "Annual Fee": 0, "Mgmt Fee %": 0.005, "Buy/Sell Fee": 0.00},
-        "Simplicity Balanced": {"Avg Return": 0.050, "Annual Fee": 0, "Mgmt Fee %": 0.0029, "Buy/Sell Fee": 0.00},
-        "Fisher Balanced Growth": {"Avg Return": 0.053, "Annual Fee": 20, "Mgmt Fee %": 0.008, "Buy/Sell Fee": 0.001},
+        "FAKE Balanced Fund X": {"Avg Return": 0.999, "Annual Fee": 123, "Mgmt Fee %": 0.0012, "Buy/Sell Fee": 0.0099},
+        "FAKE Balanced Fund Y": {"Avg Return": 0.0009, "Annual Fee": 888, "Mgmt Fee %": 0.0001, "Buy/Sell Fee": 0.0001},
+        "FAKE Balanced Fund Z": {"Avg Return": 0.045, "Annual Fee": 55, "Mgmt Fee %": 0.0055, "Buy/Sell Fee": 0.0022}
     },
     "Growth": {
-        "ANZ Growth": {"Avg Return": 0.065, "Annual Fee": 0, "Mgmt Fee %": 0.0067, "Buy/Sell Fee": 0.00},
-        "Milford Growth": {"Avg Return": 0.070, "Annual Fee": 60, "Mgmt Fee %": 0.0085, "Buy/Sell Fee": 0.002},
-        "Booster Growth": {"Avg Return": 0.068, "Annual Fee": 55, "Mgmt Fee %": 0.0075, "Buy/Sell Fee": 0.0015},
+        "FAKE Growth Rocket Fund": {"Avg Return": 0.314, "Annual Fee": 314, "Mgmt Fee %": 0.0314, "Buy/Sell Fee": 0.0031},
+        "FAKE Growth Turtle Fund": {"Avg Return": 0.003, "Annual Fee": 3, "Mgmt Fee %": 0.0003, "Buy/Sell Fee": 0.00003},
+        "FAKE Growth Placeholder": {"Avg Return": 0.065, "Annual Fee": 40, "Mgmt Fee %": 0.004, "Buy/Sell Fee": 0.001}
     },
     "Aggressive": {
         "AMP Aggressive Fund": {"Avg Return": 0.071, "Annual Fee": 65, "Mgmt Fee %": 0.010, "Buy/Sell Fee": 0.0025},
         "Booster High Growth": {"Avg Return": 0.085, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
         "Generate Focused Growth Fund": {"Avg Return": 0.085, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
-        "Milford Aggressive": {"Avg Return": 0.11, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
+        "Milford Aggressive": {"Avg Return": 0.11, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028}
     }
 }
+
 
 
 # UI
