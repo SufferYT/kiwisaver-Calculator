@@ -93,14 +93,11 @@ recommendation = "Conservative" if investment_years <= 3 else \
                 "Balanced" if investment_years == 6 else \
                 "Growth" if investment_years <= 10 else "Aggressive"
 
-# Determine color based on recommendation match
 color = "green" if recommendation in funds else "red"
 st.markdown(f"**Recommended Fund Type:** <span style='color:{color}; font-weight:bold;'>{recommendation}</span>", unsafe_allow_html=True)
 
-# Fund type selection (last input)
 fund_type = st.selectbox("Select Fund Type", list(funds.keys()))
 
-# Monthly contributions
 monthly_employee = (income * contribution_rate) / 12
 monthly_employer = (income * employer_contribution_rate) / 12
 
@@ -114,35 +111,26 @@ for fund, data in selected_funds.items():
     yearly_balances = []
     for year in years:
         annual_contribution = (monthly_employee + monthly_employer) * 12 + govt_contribution
-        balance += annual_contribution  # Add contributions
-
-        # Apply investment return
+        balance += annual_contribution
         balance *= (1 + data["Avg Return"])
-
-        # Deduct fees
         balance -= data["Annual Fee"]
-        balance *= (1 - data["Mgmt Fee %"])  # Management fee
-        balance *= (1 - data["Buy/Sell Fee"])  # Buy/Sell fee
-
+        balance *= (1 - data["Mgmt Fee %"])
+        balance *= (1 - data["Buy/Sell Fee"])
         yearly_balances.append(balance)
-    
     results[fund] = yearly_balances
 
-# Drop the index column to prevent duplicate numbering
 results_display = results.set_index("Year")
 
-# Display comparison table
 st.subheader(f"Projected KiwiSaver Balances - {fund_type} Funds")
 st.dataframe(results_display.style.format({col: "${:,.2f}" for col in results_display.columns}))
 
-# Sort funds by final balance (last year)
 sorted_funds = sorted(selected_funds.keys(), key=lambda f: results[f].iloc[-1], reverse=True)
 
-# Plot growth over time with hover-over fund name using Plotly
+# Plotly chart with mobile-friendly hover
 st.subheader("Balance Growth Over Time")
 fig = go.Figure()
 
-for fund in sorted_funds:  # Iterate over funds in sorted order
+for fund in sorted_funds:
     fig.add_trace(go.Scatter(
         x=results["Year"],
         y=results[fund],
@@ -155,7 +143,13 @@ fig.update_layout(
     xaxis_title="Years",
     yaxis_title="Projected Balance ($)",
     title=f"KiwiSaver Growth Comparison ({fund_type} Funds)",
-    hovermode="x unified"
+    hovermode="x unified",  # Mobile-friendly group hover
+    dragmode="pan",         # Mobile drag interaction
+    hoverlabel=dict(
+        bgcolor="white",
+        font_size=14,
+        font_family="Arial"
+    )
 )
 
 st.plotly_chart(fig, use_container_width=True)
