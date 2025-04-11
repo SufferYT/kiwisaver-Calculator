@@ -2,8 +2,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
+import plotly.io as pio
 
-# Force light mode and ensure overflow is clean
+# Force all Plotly charts to use light mode
+pio.templates.default = "plotly_white"
+
+# Force Streamlit app into light mode
 st.markdown(
     """
     <style>
@@ -19,7 +23,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Fund data (unchanged)
+# Fund data
 funds = {
     "Conservative": {
         "AMP Defensive Conservative": {"Avg Return": 0.024, "Annual Fee": 0, "Mgmt Fee %": 0.0079, "Buy/Sell Fee": 0.00},
@@ -38,7 +42,6 @@ funds = {
         "Generate Focused Growth Fund": {"Avg Return": 0.085, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
         "Milford Aggressive": {"Avg Return": 0.11, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
     },
-    # Add the rest of the fund categories as before...
 }
 
 # UI
@@ -89,7 +92,7 @@ st.dataframe(results_display.style.format({col: "${:,.2f}" for col in results_di
 
 sorted_funds = sorted(selected_funds.keys(), key=lambda f: results[f].iloc[-1], reverse=True)
 
-# Build Plotly chart
+# Build Plotly chart with light template and hover label fix
 fig = go.Figure()
 for fund in sorted_funds:
     fig.add_trace(go.Scatter(
@@ -101,6 +104,7 @@ for fund in sorted_funds:
     ))
 
 fig.update_layout(
+    template="plotly_white",
     xaxis_title="Years",
     yaxis_title="Projected Balance ($)",
     title=f"KiwiSaver Growth Comparison ({fund_type} Funds)",
@@ -109,9 +113,11 @@ fig.update_layout(
     xaxis=dict(fixedrange=True),
     yaxis=dict(fixedrange=True),
     hoverlabel=dict(
-        bgcolor="white",
+        bgcolor="#f0f0f0",
+        font_color="black",
         font_size=14,
-        font_family="Arial"
+        font_family="Arial",
+        bordercolor="black"
     )
 )
 
