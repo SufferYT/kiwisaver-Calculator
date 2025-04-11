@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 
-# Style & overflow cleanup
+# Force light mode and ensure overflow is clean
 st.markdown(
     """
     <style>
@@ -14,17 +14,12 @@ st.markdown(
         section.main > div {
             overflow-x: hidden;
         }
-        #mobile-msg {
-            color: red;
-            font-style: italic;
-            margin-top: 1rem;
-        }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# Fund data
+# Fund data (unchanged)
 funds = {
     "Conservative": {
         "AMP Defensive Conservative": {"Avg Return": 0.024, "Annual Fee": 0, "Mgmt Fee %": 0.0079, "Buy/Sell Fee": 0.00},
@@ -42,10 +37,11 @@ funds = {
         "Booster High Growth": {"Avg Return": 0.085, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
         "Generate Focused Growth Fund": {"Avg Return": 0.085, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
         "Milford Aggressive": {"Avg Return": 0.11, "Annual Fee": 70, "Mgmt Fee %": 0.0105, "Buy/Sell Fee": 0.0028},
-    }
+    },
+    # Add the rest of the fund categories as before...
 }
 
-# UI Inputs
+# UI
 st.title("KiwiSaver Fund Comparison Calculator")
 
 starting_balance = st.number_input("Starting KiwiSaver Balance ($)", min_value=0, value=0, step=1000)
@@ -66,34 +62,9 @@ st.markdown(f"**Recommended Fund Type:** <span style='color:{color}; font-weight
 
 fund_type = st.selectbox("Select Fund Type", list(funds.keys()))
 
-# Detect screen width (via hidden input + JS)
-st.markdown(
-    """
-    <input type="hidden" id="screen-width" name="screen-width">
-    <script>
-        const input = window.parent.document.querySelector('input[name="screen-width"]') || document.querySelector('input[name="screen-width"]');
-        if (input) {
-            input.value = window.innerWidth;
-            const event = new Event('input', { bubbles: true });
-            input.dispatchEvent(event);
-        }
-    </script>
-    """,
-    unsafe_allow_html=True
-)
-
-screen_width = st.text_input("screen-width", value="1024", label_visibility="collapsed")
-
-try:
-    screen_width = int(screen_width)
-except ValueError:
-    screen_width = 1024
-
-show_chart = screen_width >= 768
-
-# Calculate projections
 monthly_employee = (income * contribution_rate) / 12
 monthly_employer = (income * employer_contribution_rate) / 12
+
 years = list(range(1, investment_years + 1))
 results = pd.DataFrame({"Year": years})
 
@@ -111,42 +82,60 @@ for fund, data in selected_funds.items():
         yearly_balances.append(balance)
     results[fund] = yearly_balances
 
-# Show results
 results_display = results.set_index("Year")
+
 st.subheader(f"Projected KiwiSaver Balances - {fund_type} Funds")
 st.dataframe(results_display.style.format({col: "${:,.2f}" for col in results_display.columns}))
 
-# Generate chart
-if show_chart:
-    st.subheader("Balance Growth Over Time")
+sorted_funds = sorted(selected_funds.keys(), key=lambda f: results[f].iloc[-1], reverse=True)
 
-    sorted_funds = sorted(selected_funds.keys(), key=lambda f: results[f].iloc[-1], reverse=True)
-    fig = go.Figure()
-    for fund in sorted_funds:
-        fig.add_trace(go.Scatter(
-            x=results["Year"],
-            y=results[fund],
-            mode='lines+markers',
-            name=fund,
-            hovertemplate=f'<b>Fund</b>: {fund}<br><b>Balance</b>: $%{{y:,.2f}}<extra></extra>'
-        ))
+# Build Plotly chart
+fig = go.Figure()
+for fund in sorted_funds:
+    fig.add_trace(go.Scatter(
+        x=results["Year"],
+        y=results[fund],
+        mode='lines+markers',
+        name=fund,
+        hovertemplate=f'<b>Fund</b>: {fund}<br><b>Balance</b>: $%{{y:,.2f}}<extra></extra>'
+    ))
 
-    fig.update_layout(
-        xaxis_title="Years",
-        yaxis_title="Projected Balance ($)",
-        title=f"KiwiSaver Growth Comparison ({fund_type} Funds)",
-        hovermode="x unified",
-        dragmode="pan",
-        xaxis=dict(fixedrange=True),
-        yaxis=dict(fixedrange=True),
-        hoverlabel=dict(
-            bgcolor="white",
-            font_size=14,
-            font_family="Arial"
-        )
+fig.update_layout(
+    xaxis_title="Years",
+    yaxis_title="Projected Balance ($)",
+    title=f"KiwiSaver Growth Comparison ({fund_type} Funds)",
+    hovermode="x unified",
+    dragmode="pan",
+    xaxis=dict(fixedrange=True),
+    yaxis=dict(fixedrange=True),
+    hoverlabel=dict(
+        bgcolor="white",
+        font_size=14,
+        font_family="Arial"
     )
+)
 
-    st.plotly_chart(fig, use_container_width=True)
+# Show chart only on desktop via JS detection
+st.subheader("Balance Growth Over Time")
+st.markdown('<div id="chart-container">', unsafe_allow_html=True)
+st.plotly_chart(fig, use_container_width=True)
+st.markdown('</div>', unsafe_allow_html=True)
 
-else:
-    st.markdown('<div id="mobile-msg">📱 Chart hidden on mobile for a better experience.</div>', unsafe_allow_html=True)
+# JS to hide chart on mobile and show a message instead
+st.markdown(
+    """
+    <div id="mobile-msg" style="display: none; color: red; font-style: italic;">
+        📱 Chart hidden on mobile for a better experience.
+    </div>
+
+    <script>
+    const chart = window.parent.document.getElementById("chart-container") || document.getElementById("chart-container");
+    const msg = document.getElementById("mobile-msg");
+    if (window.innerWidth < 768) {
+        if (chart) chart.style.display = "none";
+        if (msg) msg.style.display = "block";
+    }
+    </script>
+    """,
+    unsafe_allow_html=True
+)
