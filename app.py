@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 
-# Force light mode and ensure overflow is clean
+# Style & overflow cleanup
 st.markdown(
     """
     <style>
@@ -14,18 +14,7 @@ st.markdown(
         section.main > div {
             overflow-x: hidden;
         }
-
-        @media (max-width: 767px) {
-            #chart-container {
-                display: none !important;
-            }
-            #mobile-msg {
-                display: block !important;
-            }
-        }
-
         #mobile-msg {
-            display: none;
             color: red;
             font-style: italic;
             margin-top: 1rem;
@@ -77,10 +66,34 @@ st.markdown(f"**Recommended Fund Type:** <span style='color:{color}; font-weight
 
 fund_type = st.selectbox("Select Fund Type", list(funds.keys()))
 
-# Calculation Logic
+# Detect screen width (via hidden input + JS)
+st.markdown(
+    """
+    <input type="hidden" id="screen-width" name="screen-width">
+    <script>
+        const input = window.parent.document.querySelector('input[name="screen-width"]') || document.querySelector('input[name="screen-width"]');
+        if (input) {
+            input.value = window.innerWidth;
+            const event = new Event('input', { bubbles: true });
+            input.dispatchEvent(event);
+        }
+    </script>
+    """,
+    unsafe_allow_html=True
+)
+
+screen_width = st.text_input("screen-width", value="1024", label_visibility="collapsed")
+
+try:
+    screen_width = int(screen_width)
+except ValueError:
+    screen_width = 1024
+
+show_chart = screen_width >= 768
+
+# Calculate projections
 monthly_employee = (income * contribution_rate) / 12
 monthly_employer = (income * employer_contribution_rate) / 12
-
 years = list(range(1, investment_years + 1))
 results = pd.DataFrame({"Year": years})
 
@@ -98,61 +111,42 @@ for fund, data in selected_funds.items():
         yearly_balances.append(balance)
     results[fund] = yearly_balances
 
+# Show results
 results_display = results.set_index("Year")
 st.subheader(f"Projected KiwiSaver Balances - {fund_type} Funds")
 st.dataframe(results_display.style.format({col: "${:,.2f}" for col in results_display.columns}))
 
-# Chart
-sorted_funds = sorted(selected_funds.keys(), key=lambda f: results[f].iloc[-1], reverse=True)
-fig = go.Figure()
-for fund in sorted_funds:
-    fig.add_trace(go.Scatter(
-        x=results["Year"],
-        y=results[fund],
-        mode='lines+markers',
-        name=fund,
-        hovertemplate=f'<b>Fund</b>: {fund}<br><b>Balance</b>: $%{{y:,.2f}}<extra></extra>'
-    ))
+# Generate chart
+if show_chart:
+    st.subheader("Balance Growth Over Time")
 
-fig.update_layout(
-    xaxis_title="Years",
-    yaxis_title="Projected Balance ($)",
-    title=f"KiwiSaver Growth Comparison ({fund_type} Funds)",
-    hovermode="x unified",
-    dragmode="pan",
-    xaxis=dict(fixedrange=True),
-    yaxis=dict(fixedrange=True),
-    hoverlabel=dict(
-        bgcolor="white",
-        font_size=14,
-        font_family="Arial"
+    sorted_funds = sorted(selected_funds.keys(), key=lambda f: results[f].iloc[-1], reverse=True)
+    fig = go.Figure()
+    for fund in sorted_funds:
+        fig.add_trace(go.Scatter(
+            x=results["Year"],
+            y=results[fund],
+            mode='lines+markers',
+            name=fund,
+            hovertemplate=f'<b>Fund</b>: {fund}<br><b>Balance</b>: $%{{y:,.2f}}<extra></extra>'
+        ))
+
+    fig.update_layout(
+        xaxis_title="Years",
+        yaxis_title="Projected Balance ($)",
+        title=f"KiwiSaver Growth Comparison ({fund_type} Funds)",
+        hovermode="x unified",
+        dragmode="pan",
+        xaxis=dict(fixedrange=True),
+        yaxis=dict(fixedrange=True),
+        hoverlabel=dict(
+            bgcolor="white",
+            font_size=14,
+            font_family="Arial"
+        )
     )
-)
 
-# Embed the chart in a container div
-st.subheader("Balance Growth Over Time")
-st.markdown('<div id="chart-container">', unsafe_allow_html=True)
-st.plotly_chart(fig, use_container_width=True)
-st.markdown('</div>', unsafe_allow_html=True)
+    st.plotly_chart(fig, use_container_width=True)
 
-# JS + Message (separated to avoid triple-quote conflict)
-st.markdown(
-    '''
-    <script>
-    window.onload = function() {
-        const chartContainer = document.getElementById("chart-container");
-        const mobileMsg = document.getElementById("mobile-msg");
-
-        if (window.innerWidth < 768) {
-            if (chartContainer) chartContainer.style.display = "none";
-            if (mobileMsg) mobileMsg.style.display = "block";
-        }
-    }
-    </script>
-
-    <div id="mobile-msg">
-        📱 Chart hidden on mobile for a better experience.
-    </div>
-    ''',
-    unsafe_allow_html=True
-)
+else:
+    st.markdown('<div id="mobile-msg">📱 Chart hidden on mobile for a better experience.</div>', unsafe_allow_html=True)
