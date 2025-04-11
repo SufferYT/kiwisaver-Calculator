@@ -16,12 +16,24 @@ st.markdown(
             background-color: white !important;
             color: black !important;
         }
+
+        /* Hide graph container on mobile */
+        @media only screen and (max-width: 768px) {
+            .desktop-only-graph {
+                display: none;
+            }
+        }
+
+        /* Optional: make main section avoid horizontal overflow */
+        section.main > div {
+            overflow-x: hidden;
+        }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# KiwiSaver providers with categorized funds
+# KiwiSaver funds (same as before)
 funds = {
     "Conservative": {
         "AMP Defensive Conservative": {"Avg Return": 0.024, "Annual Fee": 0, "Mgmt Fee %": 0.0079, "Buy/Sell Fee": 0.00},
@@ -78,16 +90,14 @@ funds = {
 # Streamlit UI
 st.title("KiwiSaver Fund Comparison Calculator")
 
-# User Inputs
 starting_balance = st.number_input("Starting KiwiSaver Balance ($)", min_value=0, value=0, step=1000)
 income = st.number_input("Annual Income ($)", min_value=1000, value=70000, step=1000)
 contribution_rate = st.slider("Your Contribution Rate (%)", 3, 10, 3) / 100
 employer_contribution_rate = st.slider("Employer Contribution Rate (%)", 3, 10, 3) / 100
 investment_years = st.slider("Investment Period (Years)", 1, 40, 20)
 
-govt_contribution = 521  # Max annual government contribution
+govt_contribution = 521
 
-# Fund recommendation logic
 recommendation = "Conservative" if investment_years <= 3 else \
                 "Moderate" if investment_years <= 5 else \
                 "Balanced" if investment_years == 6 else \
@@ -104,7 +114,6 @@ monthly_employer = (income * employer_contribution_rate) / 12
 years = list(range(1, investment_years + 1))
 results = pd.DataFrame({"Year": years})
 
-# Calculate projections for selected fund type
 selected_funds = funds[fund_type]
 for fund, data in selected_funds.items():
     balance = starting_balance
@@ -126,8 +135,7 @@ st.dataframe(results_display.style.format({col: "${:,.2f}" for col in results_di
 
 sorted_funds = sorted(selected_funds.keys(), key=lambda f: results[f].iloc[-1], reverse=True)
 
-# Plotly chart with mobile-friendly hover
-st.subheader("Balance Growth Over Time")
+# Plotly chart with responsive layout + mobile touch disabled
 fig = go.Figure()
 
 for fund in sorted_funds:
@@ -144,14 +152,34 @@ fig.update_layout(
     yaxis_title="Projected Balance ($)",
     title=f"KiwiSaver Growth Comparison ({fund_type} Funds)",
     hovermode="x unified",
-    dragmode="pan",  # allow panning
+    dragmode="pan",
+    xaxis=dict(fixedrange=True),
+    yaxis=dict(fixedrange=True),
     hoverlabel=dict(
         bgcolor="white",
         font_size=14,
         font_family="Arial"
-    ),
-    xaxis=dict(fixedrange=True),  # ✅ lock zoom on x-axis
-    yaxis=dict(fixedrange=True)   # ✅ lock zoom on y-axis
+    )
 )
 
+# Hide chart on mobile using CSS
+st.subheader("Balance Growth Over Time")
+st.markdown('<div class="desktop-only-graph">', unsafe_allow_html=True)
 st.plotly_chart(fig, use_container_width=True)
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Optional: Display message to mobile users
+st.markdown(
+    """
+    <div class="mobile-only-message" style="display: none;">
+        <p style="color: red; font-style: italic;">📱 Chart hidden on mobile for a better viewing experience.</p>
+    </div>
+    <script>
+    if (window.innerWidth < 768) {
+        const msg = window.parent.document.querySelector('.mobile-only-message') || document.querySelector('.mobile-only-message');
+        if (msg) msg.style.display = 'block';
+    }
+    </script>
+    """,
+    unsafe_allow_html=True
+)
