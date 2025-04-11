@@ -143,13 +143,15 @@ fig.update_layout(
     xaxis_title="Years",
     yaxis_title="Projected Balance ($)",
     title=f"KiwiSaver Growth Comparison ({fund_type} Funds)",
-    hovermode="x unified",  # Mobile-friendly group hover
-    dragmode="pan",         # Mobile drag interaction
+    hovermode="x unified",
+    dragmode="pan",  # allow panning
     hoverlabel=dict(
         bgcolor="white",
         font_size=14,
         font_family="Arial"
-    )
+    ),
+    xaxis=dict(fixedrange=True),  # ✅ lock zoom on x-axis
+    yaxis=dict(fixedrange=True)   # ✅ lock zoom on y-axis
 )
 
 st.plotly_chart(fig, use_container_width=True)
